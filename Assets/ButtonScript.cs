@@ -5,6 +5,8 @@ public class ButtonScript : MonoBehaviour
 {
     public static ButtonScript Instance { get; private set; }
 
+    private FindCamera findCamera;
+
     public int sceneIndex = 0;
     public int sceneCount = 0;
 
@@ -20,16 +22,18 @@ public class ButtonScript : MonoBehaviour
             Instance = this;
         }
 
+        findCamera = GetComponent<FindCamera>();
         sceneCount = SceneManager.sceneCount;
     }
     public void ChangeScene()
     {
         SceneManager.LoadScene(sceneIndex);
         sceneIndex += 1;
-        if (sceneIndex > SceneManager.sceneCount)
+        if (sceneIndex >= SceneManager.sceneCount)
         {
             sceneIndex = 0;
         }
+        findCamera.AssignCamera();
     }
 
     public void TestButton()
